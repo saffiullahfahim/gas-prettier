@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #1e1e1e;
+      color: #fff;
+      width: 450px;
+      min-height: 300px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    div {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    textarea {
+      width: 100%;
+      height: 50vh;
+      padding: 1rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #2d2d2d;
+      color: #fff;
+      resize: none;
+    }
+    button {
+      width: 100%;
+      height: 3rem;
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #0078d4;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0063b1;
+    }
+  </style>
+  <body>
+    <div>
+      <h1>CSX Script</h1>
+      <textarea spellcheck="false" id="script"></textarea>
+      <button id="copyBtn">Copy Script</button>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>

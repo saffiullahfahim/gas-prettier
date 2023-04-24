@@ -1,0 +1,19 @@
+{
+  "name": "GAS Extension",
+  "description": "GAS Extension For Formetting and Save to Local.",
+  "version": "0.0.0",
+  "manifest_version": 3,
+  "permissions": ["scripting", "activeTab", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "offline_enabled": true,
+  "action": {
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "48": "/img/apps_script_1x_48dp.png"
+    },
+    "default_title": "GAS Extension"
+  },
+  "icons": {
+    "48": "/img/apps_script_1x_48dp.png"
+  }
+}
