@@ -31,5 +31,5 @@ fetch(fetchLink)
 ## Features
 - [x] prettier format
 - [x] save the file with prettier format
-- [] save file locally or remotely 
-- [] push the file to github
+- [ ] save file locally or remotely 
+- [ ] push the file to github
