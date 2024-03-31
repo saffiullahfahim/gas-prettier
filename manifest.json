@@ -1,19 +1,23 @@
 {
-  "name": "GAS Extension",
-  "description": "GAS Extension For Formetting and Save to Local.",
-  "version": "0.0.0",
+  "name": "GAS Prettier",
+  "description": "Google Apps Script Prettier Formatter Chrome Extention",
+  "version": "1.0.0",
   "manifest_version": 3,
-  "permissions": ["scripting", "activeTab", "tabs"],
-  "host_permissions": ["<all_urls>"],
-  "offline_enabled": true,
-  "action": {
-    "default_popup": "src/popup.html",
-    "default_icon": {
-      "48": "/img/apps_script_1x_48dp.png"
-    },
-    "default_title": "GAS Extension"
-  },
+  "permissions": ["scripting"],
+  "host_permissions": ["https://script.google.com/home/projects/*/edit"],
   "icons": {
     "48": "/img/apps_script_1x_48dp.png"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://script.google.com/home/projects/*/edit"],
+      "js": [
+        "src/standalone.js",
+        "src//parser-babel.js",
+        "src/parser-html.js",
+        "src/loadScript.js"
+      ],
+      "world": "MAIN"
+    }
+  ]
 }
