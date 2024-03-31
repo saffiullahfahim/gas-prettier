@@ -58,29 +58,27 @@ const __script = async () => {
       formattedCode = prettier.format(formattedCode, prettierConfig[type]);
     } catch (e) {
       error = e.message;
+      console.log(error);
     }
 
-    if (error) {
-      console.info(error);
-      let div = document.createElement("pre");
-      div.className = "prettier-error-snackbar";
-      div.append(error);
-      document.body.appendChild(div);
+    let div = document.createElement("pre");
+    div.className = `prettier-snackbar ${error ? "warning" : "info"}`;
+    div.append(error || "Formatted Successfully!");
+    document.body.appendChild(div);
 
-      div.ondblclick = () => {
-        div.remove();
-      };
+    div.ondblclick = () => {
+      div.remove();
+    };
 
-      div.className = `${div.className} show`;
+    div.className = `${div.className} show`;
+
+    setTimeout(function () {
+      div.className = div.className.replace("show", "");
 
       setTimeout(function () {
-        div.className = div.className.replace("show", "");
-
-        setTimeout(function () {
-          div.remove();
-        }, 1000);
-      }, 10000);
-    }
+        div.remove();
+      }, 1000);
+    }, 10000);
 
     return formattedCode;
   };

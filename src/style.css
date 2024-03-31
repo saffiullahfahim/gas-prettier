@@ -1,12 +1,9 @@
-.prettier-error-snackbar {
+.prettier-snackbar {
   visibility: hidden;
   min-width: 250px;
   max-width: 400px;
   overflow: hidden;
   margin-left: -125px;
-  border-left: 4px solid rgb(237, 137, 54);
-  background-color: rgb(255, 250, 240);
-  color: rgb(192, 86, 33);
   padding: 16px;
   position: fixed;
   z-index: 1;
@@ -16,15 +13,26 @@
   user-select: none;
 }
 
-.prettier-error-snackbar.show {
+.prettier-snackbar.info {
+  border-left: 4px solid rgb(28, 69, 172);
+  background-color: rgb(235, 245, 255);
+  color: rgb(30, 66, 159);
+}
+
+.prettier-snackbar.warning {
+  border-left: 4px solid rgb(237, 137, 54);
+  background-color: rgb(255, 250, 240);
+  color: rgb(192, 86, 33);
+}
+
+.prettier-snackbar.show {
   visibility: visible;
-  -webkit-animation: prettierErrorSnackbarFadein 0.5s,
-    prettierErrorSnackbarFadeout 0.5s 9.5s;
-  animation: prettierErrorSnackbarFadein 0.5s,
-    prettierErrorSnackbarFadeout 0.5s 9.5s;
+  -webkit-animation: prettierSnackbarFadein 0.5s,
+    prettierSnackbarFadeout 0.5s 9.5s;
+  animation: prettierSnackbarFadein 0.5s, prettierSnackbarFadeout 0.5s 9.5s;
 }
 
-@-webkit-keyframes prettierErrorSnackbarFadein {
+@-webkit-keyframes prettierSnackbarFadein {
   from {
     bottom: 0;
     opacity: 0;
@@ -35,7 +43,7 @@
   }
 }
 
-@keyframes prettierErrorSnackbarFadein {
+@keyframes prettierSnackbarFadein {
   from {
     bottom: 0;
     opacity: 0;
@@ -46,7 +54,7 @@
   }
 }
 
-@-webkit-keyframes prettierErrorSnackbarFadeout {
+@-webkit-keyframes prettierSnackbarFadeout {
   from {
     bottom: 30px;
     opacity: 1;
@@ -57,7 +65,7 @@
   }
 }
 
-@keyframes prettierErrorSnackbarFadeout {
+@keyframes prettierSnackbarFadeout {
   from {
     bottom: 30px;
     opacity: 1;
