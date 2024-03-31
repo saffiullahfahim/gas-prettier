@@ -51,7 +51,36 @@ const __script = async () => {
       },
     };
 
-    let formattedCode = prettier.format(value, prettierConfig[type]);
+    let formattedCode = value;
+    let error = null;
+
+    try {
+      formattedCode = prettier.format(formattedCode, prettierConfig[type]);
+    } catch (e) {
+      error = e.message;
+    }
+
+    if (error) {
+      console.info(error);
+      let div = document.createElement("pre");
+      div.className = "prettier-error-snackbar";
+      div.append(error);
+      document.body.appendChild(div);
+
+      div.ondblclick = () => {
+        div.remove();
+      };
+
+      div.className = `${div.className} show`;
+
+      setTimeout(function () {
+        div.className = div.className.replace("show", "");
+
+        setTimeout(function () {
+          div.remove();
+        }, 1000);
+      }, 10000);
+    }
 
     return formattedCode;
   };
@@ -87,6 +116,8 @@ const __script = async () => {
     "html",
     htmlFormatProvider
   );
+
+  self.PRETTIER_DEBUG = true;
 };
 
 window.addEventListener("load", __script);

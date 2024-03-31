@@ -1,0 +1,69 @@
+.prettier-error-snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  max-width: 400px;
+  overflow: hidden;
+  margin-left: -125px;
+  border-left: 4px solid rgb(237, 137, 54);
+  background-color: rgb(255, 250, 240);
+  color: rgb(192, 86, 33);
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  right: 30px;
+  bottom: 30px;
+  font-size: 17px;
+  user-select: none;
+}
+
+.prettier-error-snackbar.show {
+  visibility: visible;
+  -webkit-animation: prettierErrorSnackbarFadein 0.5s,
+    prettierErrorSnackbarFadeout 0.5s 9.5s;
+  animation: prettierErrorSnackbarFadein 0.5s,
+    prettierErrorSnackbarFadeout 0.5s 9.5s;
+}
+
+@-webkit-keyframes prettierErrorSnackbarFadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes prettierErrorSnackbarFadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes prettierErrorSnackbarFadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes prettierErrorSnackbarFadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}

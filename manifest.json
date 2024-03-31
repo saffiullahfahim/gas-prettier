@@ -17,6 +17,7 @@
         "src/lib/prettier/parser-html.js",
         "src/loadScript.js"
       ],
+      "css": ["src/style.css"],
       "world": "MAIN"
     }
   ]
