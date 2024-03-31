@@ -12,9 +12,9 @@
     {
       "matches": ["https://script.google.com/home/projects/*/edit"],
       "js": [
-        "src/standalone.js",
-        "src//parser-babel.js",
-        "src/parser-html.js",
+        "src/lib/prettier/standalone.js",
+        "src/lib/prettier/parser-babel.js",
+        "src/lib/prettier/parser-html.js",
         "src/loadScript.js"
       ],
       "world": "MAIN"
