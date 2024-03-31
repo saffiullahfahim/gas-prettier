@@ -4,13 +4,19 @@
   "version": "1.0.0",
   "manifest_version": 3,
   "permissions": ["scripting"],
-  "host_permissions": ["https://script.google.com/home/projects/*/edit"],
+  "host_permissions": [
+    "https://script.google.com/home/projects/*/edit",
+    "https://script.google.com/u/*/home/projects/*/edit"
+  ],
   "icons": {
     "48": "/img/apps_script_1x_48dp.png"
   },
   "content_scripts": [
     {
-      "matches": ["https://script.google.com/home/projects/*/edit"],
+      "matches": [
+        "https://script.google.com/home/projects/*/edit",
+        "https://script.google.com/u/*/home/projects/*/edit"
+      ],
       "js": [
         "src/lib/prettier/standalone.js",
         "src/lib/prettier/parser-babel.js",
