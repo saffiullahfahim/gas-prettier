@@ -1,4 +1,20 @@
+let __tryToLoad = 0;
+let __maxTryToLoad = 10;
+
 const __script = async () => {
+  console.log(`Try to load GAS Prettier Count: ${__tryToLoad}`);
+  if (__tryToLoad > __maxTryToLoad) {
+    console.log(`Failed to load GAS Prettier`);
+    return;
+  }
+
+  if (!window.monaco) {
+    __tryToLoad++;
+    await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
+    return __script();
+  }
+
+  console.log(`Start to load GAS Prettier`);
   // add custom formattor for monaco editor
   const prettierFormat = (value, type) => {
     let prettierConfig = {
