@@ -1,15 +1,15 @@
 .prettier-snackbar {
   visibility: hidden;
   min-width: 250px;
-  max-width: 400px;
+  width: 100%;
   overflow: hidden;
   margin-left: -125px;
-  padding: 16px;
+  padding: 12px;
   position: fixed;
   z-index: 1;
   right: 30px;
   bottom: 30px;
-  font-size: 17px;
+  font-size: normal;
   user-select: none;
 }
 

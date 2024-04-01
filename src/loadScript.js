@@ -14,7 +14,7 @@ const __script = async () => {
     return __script();
   }
 
-  console.log(`Start to load GAS Prettier`);
+  console.log(`Start to load GAS Prettier after ${__tryToLoad} times try`);
   // add custom formattor for monaco editor
   const prettierFormat = (value, type) => {
     let prettierConfig = {
