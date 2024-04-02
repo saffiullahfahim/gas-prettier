@@ -3,7 +3,6 @@
   "description": "Google Apps Script Prettier Formatter Chrome Extention",
   "version": "1.0.0",
   "manifest_version": 3,
-  "permissions": ["scripting"],
   "host_permissions": [
     "https://script.google.com/home/projects/*/edit",
     "https://script.google.com/u/*/home/projects/*/edit"
