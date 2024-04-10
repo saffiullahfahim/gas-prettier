@@ -1,7 +1,11 @@
 let __tryToLoad = 0;
-let __maxTryToLoad = 10;
+let __maxTryToLoad = 20;
 
 const __script = async () => {
+  if (!window.location.href.match(/\/edit$/)) {
+    return;
+  }
+
   console.log(`Try to load GAS Prettier Count: ${__tryToLoad}`);
   if (__tryToLoad > __maxTryToLoad) {
     console.log(`Failed to load GAS Prettier`);
@@ -14,7 +18,29 @@ const __script = async () => {
     return __script();
   }
 
+  __tryToLoad = 0;
+
   console.log(`Start to load GAS Prettier after ${__tryToLoad} times try`);
+
+  let div = document.createElement("pre");
+  div.className = `prettier-snackbar info`;
+  div.append("GAS Prettier Loaded!");
+  document.body.appendChild(div);
+
+  div.ondblclick = () => {
+    div.remove();
+  };
+
+  div.className = `${div.className} show`;
+
+  setTimeout(function () {
+    div.className = div.className.replace("show", "");
+
+    setTimeout(function () {
+      div.remove();
+    }, 1000);
+  }, 10000);
+
   // add custom formattor for monaco editor
   const prettierFormat = (value, type) => {
     let prettierConfig = {
@@ -135,3 +161,5 @@ const __script = async () => {
 };
 
 window.addEventListener("load", __script);
+
+navigation.addEventListener("navigate", __script);

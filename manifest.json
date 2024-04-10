@@ -1,12 +1,9 @@
 {
   "name": "GAS Prettier",
   "description": "Google Apps Script Prettier Formatter Chrome Extention",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "manifest_version": 3,
-  "host_permissions": [
-    "https://script.google.com/home/projects/*/edit",
-    "https://script.google.com/u/*/home/projects/*/edit"
-  ],
+  "host_permissions": ["https://script.google.com/*"],
   "icons": {
     "16": "img/icon16.png",
     "32": "img/icon32.png",
@@ -15,10 +12,7 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://script.google.com/home/projects/*/edit",
-        "https://script.google.com/u/*/home/projects/*/edit"
-      ],
+      "matches": ["https://script.google.com/*"],
       "js": [
         "src/lib/prettier/standalone.js",
         "src/lib/prettier/parser-babel.js",
