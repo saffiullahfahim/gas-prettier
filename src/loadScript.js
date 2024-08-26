@@ -260,6 +260,10 @@ function delay(e) {
 }
 
 async function pplxLoad() {
+  if (document.querySelector(".pplx-toggle-div")) {
+    return;
+  }
+
   pplxSocket = io("https://www.perplexity.ai", {
     auth: {
       jwt: "anonymous-ask-user",
