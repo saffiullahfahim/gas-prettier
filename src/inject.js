@@ -7,6 +7,7 @@ function injectScript(file_path, tag) {
 }
 
 [
+  "src/lib/socket.io/index.min.js",
   "src/lib/prettier/standalone.js",
   "src/lib/prettier/parser-babel.js",
   "src/lib/prettier/parser-html.js",
