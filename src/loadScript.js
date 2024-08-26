@@ -275,7 +275,7 @@ async function pplxLoad() {
     console.log("Socket connected");
 
     let finalDiv = document.querySelector(
-      `[aria-label="Run the selected function"]`
+      `[aria-label="Open the execution log panel"`
     )?.parentElement?.parentElement?.parentElement?.parentElement
       ?.parentElement;
 
