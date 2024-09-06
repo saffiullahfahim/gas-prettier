@@ -278,6 +278,10 @@ async function pplxLoad() {
   pplxSocket.on("connect", async () => {
     console.log("Socket connected");
 
+    if (document.querySelector(".pplx-toggle-div")) {
+      return;
+    }
+
     let finalDiv = document.querySelector(
       `[aria-label="Open the execution log panel"`
     )?.parentElement?.parentElement?.parentElement?.parentElement
