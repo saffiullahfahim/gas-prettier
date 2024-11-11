@@ -1,9 +1,12 @@
 {
   "name": "GAS Prettier + AI Completion",
   "description": "Google Apps Script Prettier Formatter Chrome Extention with AI Completion",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "manifest_version": 3,
-  "host_permissions": ["https://script.google.com/*"],
+  "host_permissions": [
+    "https://script.google.com/*",
+    "https://labs.perplexity.ai/"
+  ],
   "icons": {
     "16": "img/icon16.png",
     "32": "img/icon32.png",
@@ -14,7 +17,6 @@
     {
       "matches": ["https://script.google.com/*"],
       "js": [
-        "src/lib/socket.io/index.min.js",
         "src/lib/prettier/standalone.js",
         "src/lib/prettier/parser-babel.js",
         "src/lib/prettier/parser-html.js",
@@ -22,6 +24,12 @@
       ],
       "css": ["src/style.css"],
       "world": "MAIN"
+    },
+    {
+      "matches": ["https://labs.perplexity.ai/"],
+      "js": ["src/lib/socket.io/index.min.js", "src/pplxLoad.js"],
+      "world": "MAIN",
+      "all_frames": true
     }
   ]
 }

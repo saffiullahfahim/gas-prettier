@@ -3,7 +3,16 @@ let __maxTryToLoad = 20;
 
 let cachedSuggestions = [];
 let lastId;
-let pplxSocket;
+let pplxSocket = {
+  onTriggers: [],
+  emitTrigger: (event, payload) => {},
+  on: (event, callback) => {
+    pplxSocket.onTriggers.push({ event, callback });
+  },
+  emit: (event, payload) => {
+    pplxSocket.emitTrigger(event, payload);
+  },
+};
 
 /**
  * inspiration from:
@@ -260,77 +269,93 @@ function delay(e) {
 }
 
 async function pplxLoad() {
-  if (document.querySelector(".pplx-toggle-div")) {
+  if (document.getElementById("pplx-iframe")) {
     return;
   }
 
-  pplxSocket = io("https://www.perplexity.ai", {
-    auth: {
-      jwt: "anonymous-ask-user",
-    },
-    reconnection: !0,
-    reconnectionDelay: 1e3,
-    reconnectionDelayMax: 3e4,
-    reconnectionAttempts: 999,
-    withCredentials: true,
-  });
+  function handleRequest(event) {
+    const request = event.data;
+    const type = request.type;
+   
+    if (type === "INIT") {
+      if (document.querySelector(".pplx-toggle-div")) {
+        return;
+      }
 
-  pplxSocket.on("connect", async () => {
-    console.log("Socket connected");
+      let finalDiv = document.querySelector(
+        `[aria-label="Open the execution log panel"`
+      )?.parentElement?.parentElement?.parentElement?.parentElement
+        ?.parentElement;
 
-    if (document.querySelector(".pplx-toggle-div")) {
-      return;
+      if (finalDiv) {
+        let div = document.createElement("div");
+        div.className = "pplx-toggle-div";
+
+        let textDiv = document.createElement("div");
+        textDiv.append("Ai Completion");
+        div.appendChild(textDiv);
+
+        let toggleSwitch = document.createElement("div");
+        toggleSwitch.className = "toggle-switch";
+
+        let input = document.createElement("input");
+        input.className = "toggle-input";
+        input.id = "pplx-toggle";
+        input.type = "checkbox";
+        input.checked = localStorage.getItem("pplx-toggle") === "true";
+        input.onchange = (e) => {
+          localStorage.setItem("pplx-toggle", e.target.checked.toString());
+        };
+
+        let label = document.createElement("label");
+        label.className = "toggle-label";
+        label.htmlFor = "pplx-toggle";
+
+        toggleSwitch.appendChild(input);
+        toggleSwitch.appendChild(label);
+
+        div.appendChild(toggleSwitch);
+
+        finalDiv.appendChild(div);
+      }
     }
 
-    let finalDiv = document.querySelector(
-      `[aria-label="Open the execution log panel"`
-    )?.parentElement?.parentElement?.parentElement?.parentElement
-      ?.parentElement;
-
-    if (finalDiv) {
-      let div = document.createElement("div");
-      div.className = "pplx-toggle-div";
-
-      let textDiv = document.createElement("div");
-      textDiv.append("Ai Completion");
-      div.appendChild(textDiv);
-
-      let toggleSwitch = document.createElement("div");
-      toggleSwitch.className = "toggle-switch";
-
-      let input = document.createElement("input");
-      input.className = "toggle-input";
-      input.id = "pplx-toggle";
-      input.type = "checkbox";
-      input.checked = localStorage.getItem("pplx-toggle") === "true";
-      input.onchange = (e) => {
-        localStorage.setItem("pplx-toggle", e.target.checked.toString());
-      };
-
-      let label = document.createElement("label");
-      label.className = "toggle-label";
-      label.htmlFor = "pplx-toggle";
-
-      toggleSwitch.appendChild(input);
-      toggleSwitch.appendChild(label);
-
-      div.appendChild(toggleSwitch);
-
-      finalDiv.appendChild(div);
+    if (type === "CONNECTED") {
+      console.log("Socket connected");
+      initInlineSuggestions();
     }
-    initInlineSuggestions();
-  });
 
-  pplxSocket.on("disconnect", (e) => {
-    console.log("Socket disconnected");
-  });
+    if (type === "RESPONSE") {
+      pplxSocket.onTriggers.forEach((trigger) => {
+        if (trigger.event === request.event) {
+          trigger.callback(...request.args);
+        }
+      });
+    }
+  }
 
-  pplxSocket.on("connect_error", async (err) => {
-    console.log("pplxSocket connect_error", err.message);
-  });
+  window.addEventListener("message", handleRequest, false);
+
+  let iframe = document.createElement("iframe");
+  iframe.src = "https://labs.perplexity.ai/";
+  iframe.style.width = "0px";
+  iframe.style.height = "0px";
+  iframe.id = "pplx-iframe";
+  iframe.style.display = "none";
+  document.body.appendChild(iframe);
+
+  iframe.onload = () => {
+    pplxSocket.emitTrigger = (event, payload) => {
+      iframe.contentWindow.postMessage(
+        { emit: event, payload },
+        "https://labs.perplexity.ai/"
+      );
+    };
+  };
 }
 
 const __script = async () => {
+  console.log("GAS Prettier");
   if (!window.location.href.match(/\/edit$/)) {
     return;
   }
@@ -347,9 +372,7 @@ const __script = async () => {
     return __script();
   }
 
-  if (window.io) {
-    pplxLoad();
-  }
+  pplxLoad();
 
   __tryToLoad = 0;
 
@@ -494,5 +517,7 @@ const __script = async () => {
 };
 
 window.addEventListener("load", __script);
-
 navigation.addEventListener("navigate", __script);
+self.__script = __script;
+
+console.log("GAS Prettier Loaded");
