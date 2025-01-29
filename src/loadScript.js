@@ -194,7 +194,7 @@ async function getAiSuggestions(e) {
   let obj = { prefix: e.prefix, suffix: e.suffix, question: e.question };
   console.log("getAiSuggestions", obj);
 
-  let model = "llama-3.1-70b-instruct";
+  let model = "sonar-pro";
 
   pplxSocket.emit("perplexity_labs", {
     model: model,
@@ -276,7 +276,7 @@ async function pplxLoad() {
   function handleRequest(event) {
     const request = event.data;
     const type = request.type;
-   
+
     if (type === "INIT") {
       if (document.querySelector(".pplx-toggle-div")) {
         return;
